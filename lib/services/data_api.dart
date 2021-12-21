@@ -7,9 +7,14 @@ import 'package:city_weather_kk/modals/weather_model.dart';
 
 
 class FreeApi {
-  Future<Sky> fetchForescatWithCity({required String myCity}) async {
+  //get myCity => myCity ;
+
+  //var myCity;
+
+  Future<Sky> getAllData({required String myCity}) async {
     // api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
+    //var myCity;
     final queryParameters = {
       'q': myCity,
       'appid': ConstApi.OPENWEATHERMAP_APPID,

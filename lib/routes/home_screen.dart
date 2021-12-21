@@ -16,19 +16,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
        super.initState();
-       skymObject = FreeApi().fetchForescatWithCity(myCity: _myCity);
-      skymObject.then((value) => print(value)); 
-      //skymObject.then((value) => print(value.main.humidity));
+       skymObject = FreeApi().getAllData (myCity: _myCity);
+      skymObject.then((value) => print(value.main.temp));
+      skymObject.then((value) => print(value.main.humidity));
+      skymObject.then((value) => print(value.weather[0].icon));
   }
-
-
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      appBar: AppBar(
+     appBar: AppBar(
         backgroundColor: const Color(0xFF04392F),
         title: const Text('Weather on City'),
         centerTitle: true,
@@ -41,24 +40,22 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       backgroundColor: const Color(0xFFFFFAFA),
       body: ListView(
-        children:<Widget>  [
-          Container(
-            child: FutureBuilder<Sky>(
+          children:<Widget>  [
+            FutureBuilder<Sky>(
               future: skymObject,
-              builder: (context, cnapshot){
-                //if(snapshot.hasData){
+              builder: (context, snapshot) {
+                //if (snapshot.hasData) {
                   return Column(
                     children: <Widget>[
                       SizedBox(height: 30.0),
-                      DataRender(snapshot: ),
+                      DataRender(snapshot: snapshot),
                     ],
                   );
-                //}
-              },
-            ),
-          )
-        ],
-      ),
+
+              })
+          ],
+        ),
+
     );
   }
 }
@@ -68,15 +65,13 @@ class DataRender extends StatelessWidget {
   final AsyncSnapshot<Sky> snapshot;
  const DataRender({required this.snapshot});
 
-  get skymObject => null;
+  //get skymObject => null;
 
-  /*get skymObject => null;
-
-  get name => null;*/
+  //get name => null;
 
   @override
   Widget build(BuildContext context) {
-    skymObject.then((value) => print(value.main.humidity));
+    //skymObject.then((value) => print(value.main.humidity));
     var city = snapshot.data;
     return Container(
       child: Column(
