@@ -1,22 +1,23 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:city_weather_kk/services/const_services.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:city_weather_kk/modals/weather_model.dart';
 
 
 class FreeApi {
-  Future<Sky> fetchForescatWithCity({required String city}) async {
+  Future<Sky> fetchForescatWithCity({required String myCity}) async {
     // api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 
     final queryParameters = {
-      'q': 'London',
-      'appid': 'mmmm',
+      'q': myCity,
+      'appid': ConstApi.OPENWEATHERMAP_APPID,
       'units': 'metric'
     };
 
     final uri = Uri.https(
-        'api.openweathermap.org', '/data/2.5/weather', queryParameters);
+        ConstApi.OPENWEATHERMAP_DOMAIN , ConstApi.OPENWEATHERMAP_SUBDOMAIN, queryParameters);
     log('request: ${uri.toString()}');
 
     final response = await http.get(uri);
