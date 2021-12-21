@@ -2,7 +2,10 @@ import 'package:city_weather_kk/modals/weather_model.dart';
 import 'package:city_weather_kk/services/data_api.dart';
 import 'package:flutter/material.dart';
 
+
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -17,9 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
        super.initState();
        skymObject = FreeApi().getAllData (myCity: _myCity);
-      skymObject.then((value) => print(value.main.temp));
-      skymObject.then((value) => print(value.main.humidity));
-      skymObject.then((value) => print(value.weather[0].icon));
+      //skymObject.then((value) => print(value.main.temp));
+      //skymObject.then((value) => print(value.main.humidity));
+      //skymObject.then((value) => print(value.weather[0].icon));
   }
 
 
@@ -39,46 +42,62 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       backgroundColor: const Color(0xFFFFFAFA),
-      body: ListView(
-          children:<Widget>  [
-            FutureBuilder<Sky>(
-              future: skymObject,
-              builder: (context, snapshot) {
-                //if (snapshot.hasData) {
-                  return Column(
-                    children: <Widget>[
-                      SizedBox(height: 30.0),
-                      DataRender(snapshot: snapshot),
-                    ],
-                  );
+      body: SizedBox(
+        height: 200.0,
+        child:
+          ListView(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+              children:<Widget>  [
+                 FutureBuilder<Sky>(
+                  future: skymObject,
+                  builder: (context, snapshot) {
+                    //if (snapshot.hasData) {
+                      return Column(
+                        children: <Widget>[
 
-              })
-          ],
-        ),
+                          const SizedBox(height: 30.0),
+                          DataRender(snapshot: snapshot),
+                        ],
+                      );
 
-    );
+                  })
+
+
+        ],
+      ),
+
+    ));
   }
 }
 
 class DataRender extends StatelessWidget {
-
   final AsyncSnapshot<Sky> snapshot;
- const DataRender({required this.snapshot});
-
-  //get skymObject => null;
-
-  //get name => null;
-
+   const DataRender({required this.snapshot});
   @override
   Widget build(BuildContext context) {
-    //skymObject.then((value) => print(value.main.humidity));
-    var city = snapshot.data;
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text('$city'),
-        ],
-      ),
+
+
+    late var temper = snapshot.data!.main.temp;
+    late var cityname = snapshot.data!.name;
+    late var cauntr = snapshot.data!.sys!.country;
+    late var humidit = snapshot.data!.main.humidity;
+    late var aswind = snapshot.data!.wind.speed;
+    late var pic = snapshot.data!.weather[0].icon;
+    late var descr = snapshot.data!.weather[0].description;
+  return
+    Column(
+      children: <Widget>[
+        Text("$cityname"),
+        Text('$cauntr'),
+        Text('$temper'),
+        Text('$humidit'),
+        Text('$aswind'),
+        Text('$pic'),
+        Text('$descr'),
+
+
+      ],
     );
   }
 
