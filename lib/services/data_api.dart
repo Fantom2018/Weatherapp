@@ -23,7 +23,7 @@ class FreeApi {
 
     final uri = Uri.https(
         ConstApi.OPENWEATHERMAP_DOMAIN , ConstApi.OPENWEATHERMAP_SUBDOMAIN, queryParameters);
-    log('request: ${uri.toString()}');
+    //log('request: ${uri.toString()}');
 
     final response = await http.get(uri);
     //print('response: ${response.body}');

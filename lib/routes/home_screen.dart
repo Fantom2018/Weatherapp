@@ -42,17 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       backgroundColor: const Color(0xFFFFFAFA),
-      body: SizedBox(
-        height: 200.0,
-        child:
-          ListView(
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-              children:<Widget>  [
-                 FutureBuilder<Sky>(
-                  future: skymObject,
-                  builder: (context, snapshot) {
-                    //if (snapshot.hasData) {
+      body: Column(
+        children:<Widget>[
+          Flexible(
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+                children:<Widget>  [
+                   FutureBuilder<Sky>(
+                    future: skymObject,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text('data');
+                    }else
                       return Column(
                         children: <Widget>[
 
@@ -60,12 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           DataRender(snapshot: snapshot),
                         ],
                       );
-
-                  })
+                    })
 
 
         ],
       ),
+          ),]
 
     ));
   }
