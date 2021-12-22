@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xFFFFFAFA),
       body: Column(
         children:<Widget>[
+          const SizedBox(height: 30.0),
           Flexible(
             child: ListView(
               scrollDirection: Axis.vertical,
@@ -53,15 +54,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     future: skymObject,
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Text('data');
-                    }else
-                      return Column(
+                        return Center(child: CircularProgressIndicator());   //Text('loading...');
+                    }else {
+                        return Column(
                         children: <Widget>[
 
                           const SizedBox(height: 30.0),
                           DataRender(snapshot: snapshot),
                         ],
                       );
+                      }
                     })
 
 
